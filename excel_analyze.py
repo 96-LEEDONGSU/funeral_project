@@ -99,5 +99,5 @@ def excel_analysis(dirpath):
 def file_path():
     script_file_path = os.path.abspath(__file__)
     script_dir_path = os.path.dirname(script_file_path)
-    str(script_dir_path).replace('\\', '/')
+    script_dir_path = str(script_dir_path).replace('\\', '/')
     return script_dir_path
