@@ -2,7 +2,7 @@ import sys
 import typing
 from PyQt5 import QtCore, uic
 from PyQt5.QtWidgets import QFileDialog, QApplication, QMainWindow
-import excel_analysis_package
+import excel_analyze
 
 
 form_class = uic.loadUiType("funeral_project/MainWindow.ui")[0]
@@ -29,8 +29,7 @@ class WindowClass(QMainWindow, form_class):
             print('선택안됨')
         else:
             print('선택됨')
-            excel_analysis_package.excel_analysis(self.select_dir_name)
-        #self.setEnabled(False)
+            excel_analyze.excel_analysis(self.select_dir_name)
 
 
 if __name__ == "__main__":

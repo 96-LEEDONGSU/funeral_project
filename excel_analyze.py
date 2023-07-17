@@ -1,6 +1,5 @@
 import os, pandas, win32com.client, openpyxl, xlrd
 
-
 def is_encrypted_excel(full_filepath):
     if full_filepath.find('.xlsx') != -1:
         try:
@@ -97,5 +96,8 @@ def excel_analysis(dirpath):
         dataframe_result = uf_excel_reader(dirpath + file_list, bank_name)
         uf_excel_writer(dataframe_result)
 
-temp = 'F:/VSC_Project/funeral_project/data/'
-excel_analysis(temp)
+def file_path():
+    script_file_path = os.path.abspath(__file__)
+    script_dir_path = os.path.dirname(script_file_path)
+    str(script_dir_path).replace('\\', '/')
+    return script_dir_path
