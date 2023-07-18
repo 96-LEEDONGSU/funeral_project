@@ -58,7 +58,7 @@ def uf_excel_reader(full_filepath, bank_name):
                     temp_moneylist.append(ws.Cells(i, 4).Value)
             temp_dict['이름'] = temp_namelist
             temp_dict['금액'] = temp_moneylist
-            df_data = pandas.DataFrame(data = temp_dict)
+            df_data = pandas.DataFrame(data = temp_dict, index=None)
             xlApp.Quit()
             return df_data
         except Exception as e:
@@ -67,16 +67,14 @@ def uf_excel_reader(full_filepath, bank_name):
             else:
                 print('uf_excel_reader error : ', e)
                 
-# A function that takes a dataframe as a parameter and converts it to an Excel file.
 def uf_excel_writer(df_data):
     if os.path.isfile('result_data.xlsx'):
         writer = pandas.ExcelWriter(path = 'result_data.xlsx', mode='a', engine='openpyxl', if_sheet_exists='overlay')
-        max_row = writer.sheets['sheet1'].max_row
-        df_data.to_excel(writer, sheet_name='sheet1', startcol=0, startrow=max_row, index=False, encoding='utf-8', header=None)
-        writer.save()
+        max_row = writer.sheets['Sheet1'].max_row
+        df_data.to_excel(writer, startcol=0, startrow=max_row, index=False, header=None)
         writer.close()  
     else:
-        df_data.to_excel(excel_writer='result_data.xlsx', sheet_name='sheet1', index=False, encoding='utf-8')
+        df_data.to_excel(excel_writer='result_data.xlsx', index=False)
     
 def excel_analysis(dirpath):
     data_list = os.listdir(dirpath)
