@@ -75,7 +75,12 @@ def uf_excel_writer(df_data):
         writer.close()  
     else:
         df_data.to_excel(excel_writer='result_data.xlsx', index=False)
-    
+
+def uf_data_excel_writer(name, money):
+    temp_data = {'이름' : name, '금액' : money}
+    df_data = pandas.DataFrame(temp_data)
+    uf_excel_writer(df_data)
+
 def excel_analysis(dirpath):
     data_list = os.listdir(dirpath)
     bank_name = '농협'
