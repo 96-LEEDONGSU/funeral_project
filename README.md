@@ -1,5 +1,7 @@
 # funeral_project
 
+![메인화면](https://github.com/96-LEEDONGSU/funeral_project/assets/74944679/f32595fd-5af8-43dd-abb4-847856745261)
+
 PyQt, SQLite
 
 # [필요]
