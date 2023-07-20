@@ -34,8 +34,13 @@ class WindowClass(QMainWindow, form_class):
             excel_analyze.excel_analysis(self.select_dir_name)
     
     def excel_add(self):
-        # 이름과 금액 텍스트박스에 올바른 데이터인지 검증
-        pass
+        name_add = self.input_name.text()
+        money_add = self.input_money.text()
+        validated, err_message = excel_analyze.user_input_validate(name_add, money_add)
+        if validated == False:
+            QMessageBox.information(self, '경고', err_message, QMessageBox.Ok)
+        else:
+            excel_analyze.uf_data_excel_writer(name_add, money_add)
 
 
 if __name__ == "__main__":

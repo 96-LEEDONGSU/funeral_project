@@ -104,3 +104,15 @@ def file_path():
     script_dir_path = os.path.dirname(script_file_path)
     script_dir_path = str(script_dir_path).replace('\\', '/')
     return script_dir_path
+
+def user_input_validate(str_name, str_money):
+    if str_name == '' or str_money == '':
+        return False, '이름 또는 금액이 빈칸입니다.'
+    
+    if str_money.isdecimal() == False:
+        return False, '금액 란에는 숫자만 입력하세요.'
+
+    if str_name.isalpha() == False:
+        return False, '이름 란에는 한글 또는 영문만 입력하세요.'
+    
+    return True, ''
