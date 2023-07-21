@@ -1,4 +1,4 @@
-import os, pandas, win32com.client, openpyxl, xlrd
+import os, pandas, win32com.client, openpyxl, xlrd, sqlite3
 
 def is_encrypted_excel(full_filepath):
     if full_filepath.find('.xlsx') != -1:
@@ -72,9 +72,11 @@ def uf_excel_writer(df_data):
         writer = pandas.ExcelWriter(path = 'result_data.xlsx', mode='a', engine='openpyxl', if_sheet_exists='overlay')
         max_row = writer.sheets['Sheet1'].max_row
         df_data.to_excel(writer, startcol=0, startrow=max_row, index=False, header=None)
-        writer.close()  
+        writer.close()
+        db_connect(df_data)
     else:
         df_data.to_excel(excel_writer='result_data.xlsx', index=False)
+        db_connect(df_data)
 
 def uf_data_excel_writer(name, money):
     temp_data = {'이름' : name, '금액' : money}
@@ -116,3 +118,13 @@ def user_input_validate(str_name, str_money):
         return False, '이름 란에는 한글 또는 영문만 입력하세요.'
     
     return True, ''
+
+def db_connect(df_data):
+    conn = sqlite3.connect('funeral_db.db')
+    cur = conn.cursor()
+    cur.execute('CREATE TABLE IF NOT EXSIST money_table(id PRIMARY KEY autoincrement, s_name TEXT, s_moeny TEXT)')
+    sql = 'INSERT INTO money_table(s_name, s_money) VALUES (?, ?)'
+    for idx, values in df_data.iterrows():
+        df_name = values['이름']
+        df_money = values['금액']
+        cur.execute(sql, (df_name, df_money))
